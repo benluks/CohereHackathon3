@@ -5,7 +5,9 @@ import numpy as np
 import os
 import re
 
-from templates import prompt
+from typer import prompt
+
+from templates import prompt_header, prompt_item
 from util import format_list, load_recipes
 
 # load api_key
@@ -44,21 +46,49 @@ search_index.build(10) # 10 trees
 """
 Query Embedding (from user input)
 """
-query = "eggs; tomatoes; chicken; lemon; ginger; black pepper"
-query_embedding = co.embed(texts=[query], model=MODEL, truncate=TRUNCATE).embeddings[0]
-similars, dists = search_index.get_nns_by_vector(
-  query_embedding, 
-  n=NUM_NEIGHBOURS if NUM_NEIGHBOURS else len(embeddings), 
-  include_distances=True
+
+def get_nns_from_query(query):
+  """
+  take query as input, embed, and return similar indices from recipes
+  """
+  query_embedding = co.embed(texts=[query], model=MODEL, truncate=TRUNCATE).embeddings[0]
+  
+  similars_ids, _ = search_index.get_nns_by_vector(
+    query_embedding, 
+    n=NUM_NEIGHBOURS if NUM_NEIGHBOURS else len(embeddings), 
+    include_distances=True
   )
+  
+  return similars_ids
+
 
 
 """
 Generating
 """
-gen_query = "This program makes a recipe from a list of ingredients\n\n"
-similar_recipes = recipes.iloc[similars[:10]]
-for i, (ings, steps, name) in similar_recipes.iterrows():
-  gen_query += prompt.format(format_list(ings), format_list(steps), re.sub(' +', ' ', name.strip()))
+def build_gen_query_from_similars(similar_ids, n=10):
+  
+  prompt = prompt_header
+  similar_recipes = recipes.iloc[similar_ids[:10]]
+  
+  for _, (ings, steps, name) in similar_recipes.iterrows():
+    prompt += prompt_item.format(format_list(ings), format_list(steps), re.sub(' +', ' ', name.strip()))
+   
+  return prompt
 
-print(gen_query)
+
+def generate_recipe(prompt):
+  response = co.generate(
+    model=MODEL,
+    prompt=prompt,
+    max_tokens=200,
+    temperature=1,
+    k=3,
+    p=0.75,
+    frequency_penalty=0,
+    presence_penalty=0,
+    stop_sequences=['--'],
+    return_likelihoods='NONE'
+    )
+  return response.generations
+
