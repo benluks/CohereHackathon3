@@ -1,0 +1,4 @@
+prompt = """Ingredients:{}
+Directions: {}
+Name: {}
+--"""
