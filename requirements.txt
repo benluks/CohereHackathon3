@@ -1,3 +1,4 @@
+annoy==1.17.1
 cohere==2.5.0
 numpy==1.19.4
 pandas==1.2.2

@@ -1,12 +1,30 @@
 # CohereHackathon3
 
+Recipe generator using `cohere` and `annoy`, built for `CohereHackathon3`.
+
 ## Quickstart
 
+Install dependencies:
 `pip install -r requirements.txt`
 
-You'll need a `.env`. Place it in the root directory. It should contain your api key as follows:
+You'll need to make a `.env` file. Place it in the root directory. It should contain your api key as follows:
 
 `API-KEY=<your-api-key>`
+
+To run the application:
+
+`python main.py`
+
+You'll be prompted with
+
+`What ingredients do you have?`
+
+Enter the ingredients in lower case separated by semicolon-space, eg: `tomatoes; onions; etc...`. The output will be 3 lines:
+
+1. The name of the generated recipe
+2. The additional ingredients (formatted as a list)
+3. The directions (formatted as a list)
+
 
 ## Data
 
