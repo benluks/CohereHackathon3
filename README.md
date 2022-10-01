@@ -1,6 +1,6 @@
 # CohereHackathon3
 
-Recipe generator using `cohere` and `annoy`, built for `CohereHackathon3`.
+Recipe generator using [cohere](https://cohere.ai/) and [annoy](https://github.com/spotify/annoy), built for the [Cohere AI Hackathon #3](https://lablab.ai/event/cohere-ai-hackathon-classify).
 
 ## Quickstart
 
@@ -19,7 +19,7 @@ You'll be prompted with
 
 `What ingredients do you have?`
 
-Enter the ingredients in lower case separated by semicolon-space, eg: `tomatoes; onions; etc...`. The output will be 3 lines:
+Enter the ingredients in lower case separated by semicolon-space, eg: `tomatoes; onions; etc.;`. The output will be 3 lines:
 
 1. The name of the generated recipe
 2. The additional ingredients (formatted as a list)
