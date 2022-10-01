@@ -20,3 +20,22 @@ def load_recipes(path='tst_recipes.csv'):
     df.steps = df.steps.map(ast.literal_eval)
 
     return df[["ingredients", "steps", "name"]]
+
+
+def parse_generated_text(gen_text):
+    
+    lines = gen_text.split('\n')
+    additional_ings = lines[0].split('; ')
+    steps = lines[1].replace("Directions:", "").split("; ")
+    name = lines[2].replace("Name:", "")
+    
+    return additional_ings, steps, name
+
+def remove_one_recipe_from_prompt(prompt):
+    """
+    Remove last recipe from prompt to shorten length
+    """
+    recipes = prompt.split("--")
+    del recipes[-2]
+    return "--".join(recipes)
+
