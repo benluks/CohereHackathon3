@@ -1,4 +1,5 @@
 prompt = """Ingredients:{}
-Directions: {}
-Name: {}
---"""
+Directions:{}
+Name:{}
+--
+"""

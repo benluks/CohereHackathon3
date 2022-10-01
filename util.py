@@ -1,5 +1,13 @@
-import pandas as pd
 import ast
+import pandas as pd
+from typing import List
+
+
+def format_list(ls: List[str]):
+    """
+    Utility function to convert list into model-digestible format 
+    """
+    return "; ".join(ls)
 
 
 def load_recipes(path='tst_recipes.csv'):
