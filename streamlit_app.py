@@ -33,7 +33,7 @@ def app():
         query = st.text_input("What ingredients do you have?")
 
         if st.button('Find a recipe'):
-            cohere = CohereClient(api_key, model_size)
+            # cohere = CohereClient(api_key, model_size)
 
             # with st.spinner(text='In progress'):
             #     ings, steps, name = process_prompt(cohere, query)
