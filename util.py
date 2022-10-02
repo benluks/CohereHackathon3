@@ -11,7 +11,8 @@ def format_list(ls: List[str]):
 
 
 def parse_formatted_list(formatted_list: str):
-    return formatted_list.split()
+    return formatted_list.split("; ")
+
 
 def load_recipes(path='tst_recipes.csv'):
     """
@@ -33,6 +34,7 @@ def parse_generated_text(gen_text):
     name = lines[2].replace("Name:", "")
     
     return additional_ings, steps, name
+
 
 def remove_one_recipe_from_prompt(prompt):
     """

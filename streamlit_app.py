@@ -1,7 +1,7 @@
 import streamlit as st
 
 from client import CohereClient
-from util import parse_generated_text
+from util import parse_formatted_list, parse_generated_text
 
 # Using the streamlit cache
 def process_prompt(cohere, query):
@@ -9,6 +9,7 @@ def process_prompt(cohere, query):
     recipes = cohere.generate_from_query(query)[0].text
     ings, steps, name = parse_generated_text(recipes)
     return ings, steps, name
+
 
 def app():
     api_key = st.sidebar.text_input("COHERE API Key:", type="password", value='XXX')
@@ -37,16 +38,20 @@ def app():
             # with st.spinner(text='In progress'):
             #     ings, steps, name = process_prompt(cohere, query)
             name = "baked beans"
+            input_ings = parse_formatted_list(query)
             ings = [' brown sugar', 'salt', 'black pepper']
             steps = ['cook ground chuck with onions until meat crumbles & is browned', 'add remaining ingredients and mix', 'pour into a greased 9x9 inch baking dish and top with a little brown sugar', 'bake at 375 degrees for 1 1/2 to 2 hours']
             st.subheader(name.title())
             # st.write(f'## {name}')
             st.write('### Ingredients')
+            for input_ing in input_ings:
+                st.write(f"* {input_ing.strip().capitalize()}")
+            st.write("Suggested Additions")
             for ing in ings:
-                st.write(f"* {ing.capitalize()}")
+                st.write(f"* {ing.strip().capitalize()}")
             st.write('### Directions')
             for i, step in enumerate(steps):
-                st.write(f"{i+1} {step.capitalize()}")
+                st.write(f"{i+1}. {step.strip().capitalize()}")
 
 
 
