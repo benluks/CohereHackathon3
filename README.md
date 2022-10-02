@@ -39,3 +39,6 @@ The `util.py` module contains a function `load_recipes()` that accepts a filepat
 
 - [ ] Come up with a catchy name
 - [ ] Suggest ingredients boolean: Whether to add ingredients or not
+
+## Streamlit app
+You can start application by typing `streamlit run streamlit_app.py` in the console.
