@@ -41,9 +41,9 @@ def app():
             input_ings = parse_formatted_list(query)
             ings = [' brown sugar', 'salt', 'black pepper']
             steps = ['cook ground chuck with onions until meat crumbles & is browned', 'add remaining ingredients and mix', 'pour into a greased 9x9 inch baking dish and top with a little brown sugar', 'bake at 375 degrees for 1 1/2 to 2 hours']
-            st.subheader(name.title())
-            # st.write(f'## {name}')
-            st.write('### Ingredients')
+            # st.subheader(name.title())
+            st.write(f'## {name.title()}')
+            # st.write('### Ingredients')
             for input_ing in input_ings:
                 st.write(f"* {input_ing.strip().capitalize()}")
             st.write("Suggested Additions")
