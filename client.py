@@ -111,4 +111,3 @@ def generate_from_query(query):
 	generations = generate_recipe(prompt)
 
 	return generations
-
