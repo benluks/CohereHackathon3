@@ -10,6 +10,9 @@ def format_list(ls: List[str]):
     return "; ".join(ls)
 
 
+def parse_formatted_list(formatted_list: str):
+    return formatted_list.split()
+
 def load_recipes(path='tst_recipes.csv'):
     """
     Load recipes from file path

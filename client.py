@@ -17,7 +17,7 @@ RECIPES_FILE = './test_recipes.csv'
 # NUM_GEN_CHARS = 200
 NUM_NEIGHBOURS = None # default to entire dataset
 
-class COHERE:
+class CohereClient:
 	def __init__(self, api_key, model_size):
 		self.model_size = model_size
 		self.co = cohere.Client(api_key)

@@ -1,10 +1,11 @@
 import streamlit as st
 
-from client import COHERE
+from client import CohereClient
 from util import parse_generated_text
 
 # Using the streamlit cache
 def process_prompt(cohere, query):
+
     recipes = cohere.generate_from_query(query)[0].text
     ings, steps, name = parse_generated_text(recipes)
     return ings, steps, name
@@ -25,30 +26,27 @@ def app():
 
         st.write("---")
 
-        # st.write(f"""
-        # ### Disclaimer
-        #
-        # """)
-        #
-        # st.write(f"""---""")
-
         st.subheader('Make a dish.')
         model_size = st.radio('Model size',
-            ('small', 'medium', 'large'))
+            ('small', 'medium', 'large'), index=2)
         query = st.text_input("What ingredients do you have?")
 
         if st.button('Find a recipe'):
-            cohere = COHERE(api_key, model_size)
+            cohere = CohereClient(api_key, model_size)
 
-            with st.spinner(text='In progress'):
-                ings, steps, name = process_prompt(cohere, query)
-            st.subheader('Results.')
-            st.write('# Name')
-            st.write(ings)
-            st.write('# Ings')
-            st.write(ings)
-            st.write('# Steps')
-            st.write(steps)
+            # with st.spinner(text='In progress'):
+            #     ings, steps, name = process_prompt(cohere, query)
+            name = "baked beans"
+            ings = [' brown sugar', 'salt', 'black pepper']
+            steps = ['cook ground chuck with onions until meat crumbles & is browned', 'add remaining ingredients and mix', 'pour into a greased 9x9 inch baking dish and top with a little brown sugar', 'bake at 375 degrees for 1 1/2 to 2 hours']
+            st.subheader(name.title())
+            # st.write(f'## {name}')
+            st.write('### Ingredients')
+            for ing in ings:
+                st.write(f"* {ing.capitalize()}")
+            st.write('### Directions')
+            for i, step in enumerate(steps):
+                st.write(f"{i+1} {step.capitalize()}")
 
 
 
